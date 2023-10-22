@@ -25,7 +25,8 @@ const braille = {
   invertY: true,
   mirrorX: true,
   mirrorY: true,
-  svgStep: 2,
+  svgStepX: 4,
+  svgStepY: 2,
   svgDots: true,
   svgPosX: 0,
   svgPosY: 0,
@@ -151,8 +152,8 @@ const gcodeGraphDotCached = function ()
 
 const buildoptimizedgcode = function ()
 {
-  const gridsizex = Math.floor(braille.paperWidth / braille.svgStep)
-  const gridsizey = Math.floor (braille.paperHeight / braille.svgStep)
+  const gridsizex = Math.floor(braille.paperWidth / braille.svgStepX)
+  const gridsizey = Math.floor (braille.paperHeight / braille.svgStepY)
 
 
 
@@ -190,14 +191,14 @@ const buildoptimizedgcode = function ()
   {
     codestr += gcodeMoveTo(sortedpositions[i].x, sortedpositions[i].y)
     codestr += gcodeprintdot ()
-    dotgrid[Math.floor(sortedpositions[i].x / braille.svgStep)][Math.floor(sortedpositions[i].y / braille.svgStep)] = 1
+    dotgrid[Math.floor(sortedpositions[i].x / braille.svgStepX)][Math.floor(sortedpositions[i].y / braille.svgStepY)] = 1
   }
 
   // print svg
   for (let i=0; i < GCODEsvgdotposition.length; i++)
   {
-    const gx = Math.floor (GCODEsvgdotposition[i].x / braille.svgStep)
-    const gy = Math.floor (GCODEsvgdotposition[i].y / braille.svgStep)
+    const gx = Math.floor (GCODEsvgdotposition[i].x / braille.svgStepX)
+    const gy = Math.floor (GCODEsvgdotposition[i].y / braille.svgStepY)
 
     if (gx < 0 || gx >= gridsizex)
       continue
